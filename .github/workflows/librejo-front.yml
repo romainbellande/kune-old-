@@ -44,9 +44,12 @@ jobs:
 
       - name: Setup sonarqube
         uses: warchant/setup-sonar-scanner@v1
+        with:
+          version: '4.3.0.2012'
       - name: Run sonarqube
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: sonar-scanner
+              -Dsonar.host.url=https://sonarcloud.io/
               -Dsonar.login=${{ secrets.SONAR_TOKEN }}
               -Dsonar.projectBaseDir=./packages/${{ matrix.package }}
