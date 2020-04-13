@@ -2,6 +2,7 @@ name: Librejo Front CI
 
 on:
   pull_request:
+    types: [opened, synchronize, reopened]
     paths:
     - 'packages/librejo-front/**'
 
