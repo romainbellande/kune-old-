@@ -1,0 +1,16 @@
+.info-table {
+  border-collapse: collapse;
+  border: 0px;
+  width: 100%;
+  margin-top: 15px;
+}
+
+.info-table thead th,
+.info-table td {
+  border-width: 1px;
+  border-color: rgba(0, 0, 0, 0.1);
+  border-collapse: True;
+  border-style: solid;
+  padding: 5px 10px;
+  text-align: center;
+}
