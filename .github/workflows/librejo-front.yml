@@ -49,5 +49,3 @@ jobs:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         with:
           projectBaseDir: ./packages/${{ matrix.package }}
-          organization: naimor
-          projectKey: kune:librejo
