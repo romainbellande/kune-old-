@@ -52,6 +52,7 @@ jobs:
           organization: naimor
           sources: src
           projectKey: kune:librejo
+          verbose: true
           options: >
             -Dsonar.javascript.lcov.reportPaths=coverage/lcov.info
             -Dsonar.sourceEncoding=UTF-8
