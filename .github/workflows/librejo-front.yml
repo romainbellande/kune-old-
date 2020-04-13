@@ -43,18 +43,11 @@ jobs:
           npx lerna exec --scope ${{ matrix.package }} -- yarn test
 
       - name: SonarCloud Scan
-        uses: romainbellande/sonarcloud-github-action@more-options
+        uses: sonarsource/sonarcloud-github-action@master
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         with:
           projectBaseDir: ./packages/${{ matrix.package }}
           organization: naimor
-          sources: src
           projectKey: kune:librejo
-          options: >
-            -Dsonar.javascript.lcov.reportPaths=coverage/lcov.info
-            -Dsonar.sourceEncoding=UTF-8
-            -Dsonar.testExecutionReportPaths=reports/test-report.xml
-            -Dsonar.tests=src
-            -Dsonar.test.inclusions=**/*.test.(j|t)sx?
