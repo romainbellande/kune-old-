@@ -43,7 +43,7 @@ jobs:
           npx lerna exec --scope ${{ matrix.package }} -- yarn test
 
       - name: SonarCloud Scan
-        uses: dagwieers/sonarcloud-github-action@more-options
+        uses: romainbellande/sonarcloud-github-action@master
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
