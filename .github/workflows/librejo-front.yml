@@ -50,9 +50,8 @@ jobs:
         with:
           projectBaseDir: packages/${{ matrix.package }}
           organization: naimor
-          sources: .
+          sources: src
           projectKey: kune:librejo
-          args: >
+          options: >
             -Dsonar.javascript.lcov.reportPaths=coverage/lcov.info
             -Dsonar.sourceEncoding=UTF-8
-            -Dsonar.sources=src
