@@ -1,0 +1,10 @@
+node_modules
+*.log
+.elk-data
+.pm2
+.ash_history
+.env
+.pgdata
+.npmrc
+.filebeat
+reports
