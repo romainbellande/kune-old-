@@ -42,11 +42,14 @@ jobs:
           npx lerna exec --scope ${{ matrix.package }} -- yarn test
 
       - name: SonarCloud Scan
-        uses: sonarsource/sonarcloud-github-action@master
+        uses: sonarsource/sonarcloud-github-action@dagwieers:more-options
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         with:
           projectBaseDir: packages/${{ matrix.package }}
+          organization: naimor
+          sources: .
+          projectKey: kune:librejo
 
 
