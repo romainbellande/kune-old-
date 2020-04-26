@@ -35,13 +35,7 @@ if (Config.ELASTICSEARCH_NODE) {
 }
 
 @Module({
-  imports: [
-    TypeOrmModule.forRoot(dbParams),
-    ...dynamicImports,
-    ConsoleModule,
-    CommandsModule,
-    HealthModule,
-  ],
+  imports: [TypeOrmModule.forRoot(dbParams), ...dynamicImports, ConsoleModule, CommandsModule, HealthModule],
   controllers: [],
   providers: [Logger, ...dynamicProviders],
   exports: [CommandsModule],
