@@ -53,15 +53,15 @@
     "yup": "^0.28.0"
   },
   "scripts": {
-    "start": "react-scripts start",
+    "start": "npx react-scripts start --verbose",
     "build": "npx react-scripts build",
     "test:watch": "npx react-scripts test",
-    "eject": "npxreact-scripts eject",
+    "eject": "npx react-scripts eject",
     "storybook": "start-storybook -p 9009 -s public",
     "build-storybook": "build-storybook -s public",
     "lint": "eslint --ext ts,tsx ./src",
-    "test": "react-scripts test --ci --watchAll=false --coverage --testResultsProcessor jest-sonar-reporter",
-    "test:coverage": "cat ./coverage/lcov.info | coveralls",
+    "test": "react-scripts test --ci --watchAll=false",
+    "test:cov": "yarn test --coverage --testResultsProcessor jest-sonar-reporter",
     "release": "standard-version"
   },
   "browserslist": {

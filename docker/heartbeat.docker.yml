@@ -1,0 +1,24 @@
+heartbeat.monitors:
+- type: http
+  schedule: '@every 5s'
+  urls:
+    - http://elk:9200
+    - http://elk:5601
+    - http://librejo-api:9000/health
+    - http://librejo-front:3000
+
+- type: icmp
+  schedule: '@every 5s'
+  hosts:
+    - elk
+    - librejo-front
+    - librejo-api
+    - librejo-api-prod
+
+processors:
+- add_cloud_metadata: ~
+
+output.elasticsearch:
+  hosts: '${ELASTICSEARCH_HOSTS:elk:9200}'
+  username: '${ELASTICSEARCH_USERNAME:}'
+  password: '${ELASTICSEARCH_PASSWORD:}'
