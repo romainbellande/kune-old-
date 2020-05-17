@@ -36,22 +36,24 @@ const NavigatorView = ({ routes, ...drawerProps }: NavigatorProps) => {
                 {id}
               </ListItemText>
             </ListItem>
-            {children.map(({ id: childId, icon, active, path }) => (
-              <ListItem
-                key={childId}
-                className={clsx(classes.item, active && classes.itemActiveItem)}
-                component={ListItemLink(path)}
-              >
-                <ListItemIcon className={classes.itemIcon}>{icon}</ListItemIcon>
-                <ListItemText
-                  classes={{
-                    primary: classes.itemPrimary,
-                  }}
+            {children
+              .filter(child => !!child.icon)
+              .map(({ id: childId, icon, active, path }) => (
+                <ListItem
+                  key={childId}
+                  className={clsx(classes.item, active && classes.itemActiveItem)}
+                  component={ListItemLink(path)}
                 >
-                  {childId}
-                </ListItemText>
-              </ListItem>
-            ))}
+                  <ListItemIcon className={classes.itemIcon}>{icon}</ListItemIcon>
+                  <ListItemText
+                    classes={{
+                      primary: classes.itemPrimary,
+                    }}
+                  >
+                    {childId}
+                  </ListItemText>
+                </ListItem>
+              ))}
             <Divider className={classes.divider} />
           </React.Fragment>
         ))}

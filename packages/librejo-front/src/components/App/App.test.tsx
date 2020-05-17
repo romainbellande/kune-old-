@@ -2,7 +2,6 @@ import React from 'react';
 import { render } from '@testing-library/react';
 import { BrowserRouter } from 'react-router-dom';
 import { Provider } from 'react-redux';
-import { Security, SecureRoute } from '@okta/okta-react';
 
 import App from '.';
 import storeMock from 'src/common/mocks/store.mock';
