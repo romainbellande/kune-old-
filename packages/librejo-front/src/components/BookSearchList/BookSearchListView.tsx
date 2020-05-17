@@ -30,7 +30,13 @@ const BookSearchListView: FC<Props> = ({ books, page, onPageChange }) => {
 
           return (
             <Box key={book.id} m={1} width={300}>
-              <BookCard title={title} description={description} thumbnail={thumbnail} authors={authors} />
+              <BookCard
+                externalId={book.id}
+                title={title}
+                description={description}
+                thumbnail={thumbnail}
+                authors={authors}
+              />
             </Box>
           );
         })}

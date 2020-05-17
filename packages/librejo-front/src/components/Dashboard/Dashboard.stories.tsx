@@ -1,6 +1,5 @@
 import React from 'react';
 import PeopleIcon from '@material-ui/icons/People';
-
 import DashboardContainer from './DashboardContainer';
 import DashboardCategory from './interfaces/dashboard-category.interface';
 

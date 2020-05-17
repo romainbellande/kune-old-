@@ -9,6 +9,8 @@ import { CommandsModule } from './commands/commands.module';
 import { LoggingInterceptor } from './interceptors/logging.interceptor';
 import { Logger } from './services/logger.service';
 import { HealthModule } from './modules/health/health.module';
+import { BookModule } from './modules/book/book.module';
+import { Book } from './modules/book/book.entity';
 
 const dynamicImports: any[] = [];
 const dynamicProviders = [];
@@ -16,7 +18,7 @@ const dynamicProviders = [];
 const dbParams: TypeOrmModuleOptions = {
   type: 'postgres',
   url: Config.DATABASE_URL,
-  entities: [],
+  entities: [Book],
   synchronize: Config.IS_DEV,
   dropSchema: Config.IS_DEV,
 };
@@ -35,7 +37,14 @@ if (Config.ELASTICSEARCH_NODE) {
 }
 
 @Module({
-  imports: [TypeOrmModule.forRoot(dbParams), ...dynamicImports, ConsoleModule, CommandsModule, HealthModule],
+  imports: [
+    TypeOrmModule.forRoot(dbParams),
+    ...dynamicImports,
+    ConsoleModule,
+    CommandsModule,
+    HealthModule,
+    BookModule,
+  ],
   controllers: [],
   providers: [Logger, ...dynamicProviders],
   exports: [CommandsModule],

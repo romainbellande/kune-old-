@@ -10,7 +10,7 @@ import config from 'src/common/config';
 import AppRouteProps from 'src/common/interfaces/app-route.interface';
 import { oktaSignIn } from 'src/common/okta';
 import AccessToken from 'src/common/interfaces/access-token.interface';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { setAccessToken } from 'src/redux/slices/auth/auth.slice';
 
 const onAuthRequired = (history: any) => () => {

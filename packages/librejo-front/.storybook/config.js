@@ -10,10 +10,11 @@ import requireContext from 'require-context.macro';
 
 import './styles.css';
 import theme from 'src/theme';
+import { initialState } from 'src/redux/root-reducer';
 
 const generateClassName = (rule, styleSheet) => `${styleSheet.options.classNamePrefix}-${rule.key}`;
 
-const store = createStore(() => ({}));
+const store = createStore(() => initialState);
 
 const withMUI = storyFn => (
   <Provider store={store}>

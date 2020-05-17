@@ -14,6 +14,7 @@ export interface ImageLinks {
 }
 
 export interface VolumeInfo {
+  subtitle: string[];
   title: string;
   authors: string[];
   publisher: string;
@@ -26,7 +27,7 @@ export interface VolumeInfo {
   maturityRating: 'MATURE' | 'NOT_MATURE';
   allowAnonLogging: boolean;
   contentVersion: string;
-  imageLinks?: ImageLinks;
+  imageLinks: ImageLinks;
   language: string;
   previewLink: string;
   infoLink: string;

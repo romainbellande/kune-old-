@@ -10,6 +10,7 @@ import {
   CardActions,
   Button,
 } from '@material-ui/core';
+import { Link } from 'react-router-dom';
 
 const maxLines = 3;
 const lineHeight = '1.4rem';
@@ -36,13 +37,14 @@ const useStyles = makeStyles({
 });
 
 interface Props {
+  externalId: string;
   title: string;
   description: string;
   authors: string[];
   thumbnail?: string;
 }
 
-const BookCardView: FC<Props> = ({ title, description, thumbnail }) => {
+const BookCardView: FC<Props> = ({ externalId, title, description, thumbnail }) => {
   const classes = useStyles();
 
   return (
@@ -59,7 +61,7 @@ const BookCardView: FC<Props> = ({ title, description, thumbnail }) => {
         </CardContent>
       </CardActionArea>
       <CardActions>
-        <Button size="small" color="primary">
+        <Button size="small" color="primary" component={Link} to={`/books/${externalId}`}>
           Learn More
         </Button>
       </CardActions>

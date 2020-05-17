@@ -21,7 +21,7 @@ services:
     environment:
       REACT_APP_OKTA_DOMAIN: "${REACT_APP_OKTA_DOMAIN}"
       REACT_APP_OKTA_CLIENT_ID: "${REACT_APP_OKTA_CLIENT_ID}"
-      REACT_APP_API_HOST: "librejo-api:${LIBREJO_API_PORT_DEV}"
+      REACT_APP_API_HOST: "localhost:${LIBREJO_API_PORT_DEV}"
       REACT_APP_API_VERSION: "v1"
       NODE_ENV: development
       YARN_VERSION: 1.22.4
@@ -39,12 +39,12 @@ services:
     command: "yarn start:dev"
     environment:
       NODE_ENV: development
-      ELASTICSEARCH_NODE: http://elk:9200
+      # ELASTICSEARCH_NODE: http://elk:9200
       OKTA_TOKEN: $OKTA_TOKEN
       OKTA_HOST: $OKTA_HOST
       DATABASE_URL: "postgres://${POSTGRES_USER}:${POSTGRES_PASSWORD}@postgres/librejo"
-      APM_SERVICE_URL: http://apm:8200
-      APM_SECRET_TOKEN: $APM_SECRET_TOKEN
+      # APM_SERVICE_URL: http://apm:8200
+      # APM_SECRET_TOKEN: $APM_SECRET_TOKEN
       YARN_VERSION: 1.22.4
     volumes:
       - ./:/home/node
@@ -53,80 +53,80 @@ services:
       - "${LIBREJO_API_PORT_DEV}:9000"
     depends_on:
       - postgres
-      - elk
+      # - elk
 
-  librejo-api-prod:
-    build:
-      context: ./packages/librejo-api
-      args:
-        YARN_LOCK: cat yarn.lock
-    environment:
-      NODE_ENV: production
-      ELASTICSEARCH_NODE: http://elk:9200
-      DATABASE_URL: "postgres://${POSTGRES_USER}:${POSTGRES_PASSWORD}@postgres/librejo"
-      OKTA_TOKEN: $OKTA_TOKEN
-      OKTA_HOST: $OKTA_HOST
-      APM_SECRET_TOKEN: $APM_SECRET_TOKEN
-      APM_SERVICE_URL: http://apm:8200
-    ports:
-      - "${LIBREJO_API_PORT_PROD}:9000"
-    depends_on:
-      - postgres
-      - elk
+  # librejo-api-prod:
+  #   build:
+  #     context: ./packages/librejo-api
+  #     args:
+  #       YARN_LOCK: cat yarn.lock
+  #   environment:
+  #     NODE_ENV: production
+  #     ELASTICSEARCH_NODE: http://elk:9200
+  #     DATABASE_URL: "postgres://${POSTGRES_USER}:${POSTGRES_PASSWORD}@postgres/librejo"
+  #     OKTA_TOKEN: $OKTA_TOKEN
+  #     OKTA_HOST: $OKTA_HOST
+  #     APM_SECRET_TOKEN: $APM_SECRET_TOKEN
+  #     APM_SERVICE_URL: http://apm:8200
+  #   ports:
+  #     - "${LIBREJO_API_PORT_PROD}:9000"
+  #   depends_on:
+  #     - postgres
+  #     - elk
 
-  elk:
-    image: sebp/elk
-    ports:
-      - "5601:5601" # Kibana web interface
-      - "9200:9200" # Elasticsearch JSON interface
-      - "5044:5044" # Logstash Beats interface
-      - "9600:9600" # Logstash Beats interface
-    volumes:
-      - ./.data/.elk-data:/var/lib/elasticsearch
+  # elk:
+  #   image: sebp/elk
+  #   ports:
+  #     - "5601:5601" # Kibana web interface
+  #     - "9200:9200" # Elasticsearch JSON interface
+  #     - "5044:5044" # Logstash Beats interface
+  #     - "9600:9600" # Logstash Beats interface
+  #   volumes:
+  #     - ./.data/.elk-data:/var/lib/elasticsearch
 
-  filebeat:
-    image: docker.elastic.co/beats/filebeat:7.6.1
-    user: root
-    volumes:
-      - .data/.filebeat:/usr/share/filebeat/data
-      - ./docker/filebeat.docker.yml:/usr/share/filebeat/filebeat.yml:ro
-      - /var/run/docker.sock:/var/run/docker.sock
-      - /var/lib/docker/containers/:/var/lib/docker/containers/:ro
-    environment:
-      - ELASTICSEARCH_HOSTS=elk:9200
-      - KIBANA_HOST=elk:5601
-    command: ["--strict.perms=false"]
+  # filebeat:
+  #   image: docker.elastic.co/beats/filebeat:7.6.1
+  #   user: root
+  #   volumes:
+  #     - .data/.filebeat:/usr/share/filebeat/data
+  #     - ./docker/filebeat.docker.yml:/usr/share/filebeat/filebeat.yml:ro
+  #     - /var/run/docker.sock:/var/run/docker.sock
+  #     - /var/lib/docker/containers/:/var/lib/docker/containers/:ro
+  #   environment:
+  #     - ELASTICSEARCH_HOSTS=elk:9200
+  #     - KIBANA_HOST=elk:5601
+  #   command: ["--strict.perms=false"]
 
-  metricbeat:
-    image: docker.elastic.co/beats/metricbeat:7.4.2
-    user: root
-    volumes:
-      - ./docker/metricbeat.docker.yml:/usr/share/metricbeat/metricbeat.yml:ro
-      - /var/run/docker.sock:/var/run/docker.sock:ro
-      - /sys/fs/cgroup:/hostfs/sys/fs/cgroup:ro
-      - /proc:/hostfs/proc:ro
-    environment:
-      - ELASTICSEARCH_HOSTS=elk:9200
-    command: ["--strict.perms=false"]
+  # metricbeat:
+  #   image: docker.elastic.co/beats/metricbeat:7.4.2
+  #   user: root
+  #   volumes:
+  #     - ./docker/metricbeat.docker.yml:/usr/share/metricbeat/metricbeat.yml:ro
+  #     - /var/run/docker.sock:/var/run/docker.sock:ro
+  #     - /sys/fs/cgroup:/hostfs/sys/fs/cgroup:ro
+  #     - /proc:/hostfs/proc:ro
+  #   environment:
+  #     - ELASTICSEARCH_HOSTS=elk:9200
+  #   command: ["--strict.perms=false"]
 
-  heartbeat:
-    image: docker.elastic.co/beats/heartbeat:7.4.2
-    user: heartbeat
-    volumes:
-      - ./docker/heartbeat.docker.yml:/usr/share/heartbeat/heartbeat.yml:ro
-    environment:
-      - ELASTICSEARCH_HOSTS=elk:9200
-    command: ["--strict.perms=false"]
+  # heartbeat:
+  #   image: docker.elastic.co/beats/heartbeat:7.4.2
+  #   user: heartbeat
+  #   volumes:
+  #     - ./docker/heartbeat.docker.yml:/usr/share/heartbeat/heartbeat.yml:ro
+  #   environment:
+  #     - ELASTICSEARCH_HOSTS=elk:9200
+  #   command: ["--strict.perms=false"]
 
-  apm:
-    image: docker.elastic.co/apm/apm-server:7.4.2
-    user: apm-server
-    volumes:
-      - ./docker/apm-server.docker.yml:/usr/share/apm-server/apm-server.yml:ro
-    environment:
-      - ELASTICSEARCH_HOSTS=elk:9200
-      - SECRET_TOKEN=$APM_SECRET_TOKEN
-    command: ["--strict.perms=false"]
+  # apm:
+  #   image: docker.elastic.co/apm/apm-server:7.4.2
+  #   user: apm-server
+  #   volumes:
+  #     - ./docker/apm-server.docker.yml:/usr/share/apm-server/apm-server.yml:ro
+  #   environment:
+  #     - ELASTICSEARCH_HOSTS=elk:9200
+  #     - SECRET_TOKEN=$APM_SECRET_TOKEN
+  #   command: ["--strict.perms=false"]
 
 
 volumes:
