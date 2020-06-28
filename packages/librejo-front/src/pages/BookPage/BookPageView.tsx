@@ -13,13 +13,15 @@ const BookPageView = () => {
   const { id: externalId } = useParams();
   const { goBack } = useHistory();
   const [bookId, setBookId] = useState<string | null>(null);
+
   const { loading, error, data = null } = useFetch<Volume>(
     `https://www.googleapis.com/books/v1/volumes/${externalId}`,
     withoutAuth,
     [],
   );
+
   const { get, post, del, loading: ownedBookLoading, error: ownedBookError } = useFetch(
-    `/v1/books`,
+    `/v1/book-refs`,
     { cachePolicy: CachePolicies.NO_CACHE },
     [],
   );
@@ -27,7 +29,7 @@ const BookPageView = () => {
   useEffect(() => {
     async function loadIsOwnedBook() {
       const initialIsOwnedBook: Collection<Book> = await get(encodeURI(`?s={"externalId": "${externalId}"}`));
-      if (initialIsOwnedBook.count === 1) {
+      if (initialIsOwnedBook?.count === 1) {
         setBookId(initialIsOwnedBook.data[0].id);
       } else {
         setBookId(null);

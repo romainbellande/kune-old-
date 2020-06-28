@@ -1,5 +1,4 @@
 import React, { FC } from 'react';
-import TextTruncate from 'react-text-truncate';
 import {
   Card,
   CardActionArea,
@@ -17,10 +16,10 @@ const lineHeight = '1.4rem';
 
 const useStyles = makeStyles({
   root: {
-    maxWidth: 345,
+    maxWidth: 210,
   },
   media: {
-    height: 140,
+    height: 250,
   },
   description: {
     height: '3.6rem',
@@ -33,18 +32,18 @@ const useStyles = makeStyles({
     overflow: 'hidden',
     textOverflow: 'ellipsis',
     whiteSpace: 'nowrap',
+    fontSize: 13,
   },
 });
 
 interface Props {
   externalId: string;
   title: string;
-  description: string;
   authors: string[];
-  thumbnail?: string;
+  thumbnail: string;
 }
 
-const BookCardView: FC<Props> = ({ externalId, title, description, thumbnail }) => {
+const BookCardView: FC<Props> = ({ externalId, title, thumbnail }) => {
   const classes = useStyles();
 
   return (
@@ -54,9 +53,6 @@ const BookCardView: FC<Props> = ({ externalId, title, description, thumbnail }) 
         <CardContent>
           <Typography gutterBottom variant="h5" component="h2" className={classes.title}>
             {title}
-          </Typography>
-          <Typography variant="body2" color="textSecondary" component="p" className={classes.description}>
-            <TextTruncate line={3} element="span" truncateText="…" text={description || 'no description provided'} />
           </Typography>
         </CardContent>
       </CardActionArea>

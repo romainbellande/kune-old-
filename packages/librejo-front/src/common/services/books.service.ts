@@ -6,4 +6,7 @@ const client = axios.create({
 });
 
 export const searchBook = (searchTerms: string, startIndex = 0, config: AxiosRequestConfig = {}) =>
-  client.get<VolumesResponse>(`/volumes?q=${searchTerms}&startIndex=${startIndex}&printType=books`, config);
+  client.get<VolumesResponse>(
+    `/volumes?q=${searchTerms}&startIndex=${startIndex}&printType=books&maxResults=16&langRestrict=fr&orderBy=relevance`,
+    config,
+  );

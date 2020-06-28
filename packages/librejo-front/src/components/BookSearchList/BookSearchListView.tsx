@@ -11,13 +11,13 @@ interface Props {
   onPageChange(event: React.ChangeEvent<unknown>, value: number): void;
 }
 
-const MAX_RESULTS = 10;
+const MAX_RESULTS = 16;
 
 const BookSearchListView: FC<Props> = ({ books, page, onPageChange }) => {
   const getCount = () => {
     if (!books) return 0;
     const countMaxResults = Math.floor(books.totalItems / MAX_RESULTS);
-    const countPage = page + 10;
+    const countPage = page + MAX_RESULTS;
     return countMaxResults > countPage ? countPage : countMaxResults;
   };
 
@@ -25,18 +25,12 @@ const BookSearchListView: FC<Props> = ({ books, page, onPageChange }) => {
     <div>
       <Box display="flex" justifyContent="center" flexWrap="wrap">
         {books.items.map(book => {
-          const { title, description, imageLinks, authors } = book.volumeInfo;
+          const { title, imageLinks, authors } = book.volumeInfo;
           const thumbnail = imageLinks?.thumbnail;
 
           return (
-            <Box key={book.id} m={1} width={300}>
-              <BookCard
-                externalId={book.id}
-                title={title}
-                description={description}
-                thumbnail={thumbnail}
-                authors={authors}
-              />
+            <Box key={book.id} m={1} width={180}>
+              <BookCard externalId={book.id} title={title} thumbnail={thumbnail} authors={authors} />
             </Box>
           );
         })}

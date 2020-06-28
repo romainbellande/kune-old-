@@ -11,6 +11,8 @@ import { Logger } from './services/logger.service';
 import { HealthModule } from './modules/health/health.module';
 import { BookModule } from './modules/book/book.module';
 import { Book } from './modules/book/book.entity';
+import { BookRefsModule } from './modules/book-refs/book-refs.module';
+import { BookRef } from './modules/book-refs/book-ref.entity';
 
 const dynamicImports: any[] = [];
 const dynamicProviders = [];
@@ -18,7 +20,7 @@ const dynamicProviders = [];
 const dbParams: TypeOrmModuleOptions = {
   type: 'postgres',
   url: Config.DATABASE_URL,
-  entities: [Book],
+  entities: [Book, BookRef],
   synchronize: Config.IS_DEV,
   dropSchema: Config.IS_DEV,
 };
@@ -44,6 +46,7 @@ if (Config.ELASTICSEARCH_NODE) {
     CommandsModule,
     HealthModule,
     BookModule,
+    BookRefsModule,
   ],
   controllers: [],
   providers: [Logger, ...dynamicProviders],

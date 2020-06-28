@@ -20,6 +20,7 @@ export class Config {
   static readonly APM_SERVICE_URL: string = process.env.APM_SERVICE_URL;
   static readonly APM_SERVICE_NAME: string = process.env.APM_SERVICE_NAME;
   static readonly APM_SECRET_TOKEN: string = process.env.APM_SECRET_TOKEN;
+
   static readonly DEFAULT_CRUD_AUTH_OPTIONS: AuthOptions = {
     property: 'uuid',
     filter: (uuid: string) => ({
