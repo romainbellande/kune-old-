@@ -27,7 +27,7 @@
     "@types/uuid": "^3.4.6",
     "@types/webpack-env": "^1.15.1",
     "@types/yup": "^0.26.27",
-    "axios": "^0.19.2",
+    "axios": "^0.21.1",
     "classnames": "^2.2.6",
     "d3-format": "^1.4.3",
     "date-fns": "^2.8.1",
